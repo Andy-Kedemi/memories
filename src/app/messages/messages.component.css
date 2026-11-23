@@ -7,7 +7,7 @@
 }
 
 h2 {
-  color: #333;
+  color: #3a3636;
   font-family: Arial, Helvetica, sans-serif;
   font-weight: lighter;
   margin-bottom: 0.75rem;
@@ -16,7 +16,7 @@ h2 {
 .clear {
   margin-bottom: 1rem;
   padding: 0.5rem 0.85rem;
-  border: 1px solid #b7b7b7;
+  border: 1px solid #6e6868;
   border-radius: 999px;
   background: #eee;
   color: #444;
@@ -31,14 +31,14 @@ h2 {
 }
 
 .clear:focus-visible {
-  outline: 2px solid #0da9ec;
+  outline: 2px solid #153d4e;
   outline-offset: 2px;
 }
 
 .clear + div {
   margin-top: 0.35rem;
   padding: 0.65rem 0.75rem;
-  border-left: 3px solid #0da9ec;
+  border-left: 3px solid #184f66;
   background: #f5f5f5;
   color: #333;
   border-radius: 0 4px 4px 0;

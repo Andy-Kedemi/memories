@@ -20,7 +20,7 @@ $memory-warn: mat.define-palette(mat.$red-palette);
 
 // Create the theme object. A theme consists of configurations for individual
 // theming systems such as "color" or "typography".
-$memory-theme: mat.define-light-theme((
+$memory-theme: mat.define-dark-theme((
   color: (
     primary: $memory-primary,
     accent: $memory-accent,
