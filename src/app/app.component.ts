@@ -10,5 +10,4 @@ import { MessagesComponent } from './messages/messages.component';
   styleUrls: ['./app.component.css'],
 })
 export class AppComponent {
-  title = 'Memories';
-}
+  title = 'Memories'
