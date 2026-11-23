@@ -1,0 +1,113 @@
+
+/* HeroesComponent styles */
+
+:host {
+  --bg: #f5f7fa;
+  --surface: #ffffff;
+  --surface-hover: #eef2f7;
+  --text: #263238;
+  --text-muted: #607d8b;
+  --border: #dce3e8;
+  --accent: #3f525c;
+  --accent-hover: #263238;
+  --accent-text: #ffffff;
+  --radius: 6px;
+}
+
+@media (prefers-color-scheme: dark) {
+  :host {
+    --bg: #18212b;
+    --surface: #263442;
+    --surface-hover: #344555;
+    --text: #f1f5f9;
+    --text-muted: #b0bec5;
+    --border: #455a64;
+    --accent: #607d8b;
+    --accent-hover: #78909c;
+  }
+}
+
+.heroes {
+  margin: 0 0 2rem;
+  padding: 0;
+  width: 100%;
+  max-width: 28rem;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.heroes li {
+  display: flex;
+}
+
+.heroes button {
+  flex: 1;
+  display: flex;
+  align-items: left;
+  gap: 2rem;
+  min-height: 3rem;
+  padding: 0 1rem 0 0;
+  font: inherit;
+  font-weight: 500;
+  text-align: left;
+  text-decoration: none;
+  color: var(--text);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  cursor: pointer;
+  overflow: hidden;
+  transition: background-color 0.2s ease, border-color 0.2s ease;
+  font-family: inherit;
+}
+
+.heroes button:hover {
+  background: var(--surface-hover);
+  border-color: var(--accent);
+}
+
+.heroes button:active {
+  background: var(--surface-hover);
+}
+
+.heroes button:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+.heroes button.selected {
+  background: var(--accent);
+  color: var(--accent-text);
+  border-color: var(--accent);
+}
+
+.heroes .badge {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  align-self: stretch;
+  min-width: 2.75rem;
+  padding: 0 0.7999rem;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--accent-text);
+  background: var(--accent-hover);
+}
+
+.heroes button.selected .badge {
+  background: rgba(209, 59, 59, 0.18);
+}
+
+.heroes .name {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .heroes button {
+    transition: none;
+  }
+}

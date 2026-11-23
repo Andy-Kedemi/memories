@@ -1,0 +1,29 @@
+.modal-header {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  padding: 20px 24px 12px;
+}
+
+.modal-header h2 {
+  margin: 0;
+  font-size: 1.4rem;
+  font-weight: 600;
+  color: #1f2937;
+}
+
+.close-x {
+  position: absolute;
+  top: 16px;
+  right: 20px;
+  background: none;
+  border: none;
+  font-size: 1.8rem;
+  line-height: 1;
+  cursor: pointer;
+  color: #6b7280;
+}
+
+.close-x:hover {
+  color: #111827;
+}

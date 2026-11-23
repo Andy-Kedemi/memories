@@ -1,0 +1,12 @@
+<div *ngIf="hero">
+  <app-modal
+    [title]="(hero.name | uppercase) + ' Details'"
+    (accepted)="save()"
+    (closed)="goBack()">
+    <div><span>id: </span>{{hero.id}}</div>
+    <div>
+      <label for="hero-name">Hero name: </label>
+      <input id="hero-name" [(ngModel)]="draftName" placeholder="Hero name"/>
+    </div>
+  </app-modal>
+</div>

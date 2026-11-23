@@ -1,0 +1,29 @@
+h1 {
+  margin-bottom: 0;
+}
+
+nav {
+  display: flex;
+  justify-content: center;
+  gap: 0.75rem;
+  margin-top: 10px;
+}
+
+nav a {
+  padding: 0.75rem 1.5rem;
+  text-decoration: none;
+  display: inline-block;
+  background-color: #e8e8e8;
+  color: #3d3d3d;
+  border-radius: 999px;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+nav a:hover {
+  color: white;
+  background-color: #0da9ec;
+}
+
+nav a:active {
+  background-color: rgb(139, 29, 29);
+}
