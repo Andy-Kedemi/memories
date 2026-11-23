@@ -51,6 +51,7 @@ export class HeroDetailComponent implements OnInit {
   save(): void {
     if (this.hero) {
       this.hero.name = this.draftName;
+      this.heroService.updateHero(this.hero).subscribe();
     }
   }
 

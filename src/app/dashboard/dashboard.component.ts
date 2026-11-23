@@ -1,19 +1,19 @@
 import { Component, OnInit } from '@angular/core';
-import { NgFor, NgIf } from '@angular/common';
+import { NgFor } from '@angular/common';
+import { RouterLink } from '@angular/router';
 import { Hero } from '../hero';
+import { HeroSearchComponent } from '../hero-search/hero-search.component';
 import { HeroService } from '../hero.service';
-import { HeroDetailComponent } from '../hero-details/hero-details.component';
 
 @Component({
   selector: 'app-dashboard',
   standalone: true,
-  imports: [NgFor, NgIf, HeroDetailComponent],
+  imports: [NgFor, RouterLink, HeroSearchComponent],
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.css'],
 })
 export class DashboardComponent implements OnInit {
   heroes: Hero[] = [];
-  selectedHero: Hero | undefined;
 
   constructor(private heroService: HeroService) {}
 
@@ -25,9 +25,5 @@ export class DashboardComponent implements OnInit {
     this.heroService
       .getHeroes()
       .subscribe((heroes) => (this.heroes = heroes.slice(1, 5)));
-  }
-
-  selectHero(hero: Hero): void {
-    this.selectedHero = hero;
   }
 }

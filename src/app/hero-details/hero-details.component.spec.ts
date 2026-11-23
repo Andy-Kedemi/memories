@@ -1,16 +1,23 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { ActivatedRoute } from '@angular/router';
+import { of } from 'rxjs';
 import { HeroDetailComponent } from './hero-details.component';
 import { Hero } from '../hero';
+import { HeroService } from '../hero.service';
 
 describe('HeroDetailComponent', () => {
   let component: HeroDetailComponent;
   let fixture: ComponentFixture<HeroDetailComponent>;
+  let heroService: jasmine.SpyObj<HeroService>;
 
   beforeEach(async () => {
+    heroService = jasmine.createSpyObj<HeroService>('HeroService', ['getHero', 'updateHero']);
+    heroService.updateHero.and.returnValue(of(undefined));
+
     await TestBed.configureTestingModule({
       imports: [HeroDetailComponent],
       providers: [
+        { provide: HeroService, useValue: heroService },
         {
           provide: ActivatedRoute,
           useValue: { snapshot: { paramMap: { get: () => null } } },
@@ -58,6 +65,7 @@ describe('HeroDetailComponent', () => {
     fixture.nativeElement.querySelector('.btn-primary').click();
 
     expect(hero.name).toBe('Updated Hero');
+    expect(heroService.updateHero).toHaveBeenCalledWith(hero);
   });
 
   it('should discard edits when canceled', () => {
@@ -72,5 +80,6 @@ describe('HeroDetailComponent', () => {
     fixture.nativeElement.querySelector('.btn-secondary').click();
 
     expect(hero.name).toBe('Windstorm');
+    expect(heroService.updateHero).not.toHaveBeenCalled();
   });
 });

@@ -27,6 +27,59 @@
   }
 }
 
+.add-hero-form {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  gap: 0.75rem;
+  max-width: 28rem;
+  margin-bottom: 1.5rem;
+}
+
+.add-hero-form label {
+  display: flex;
+  flex: 1 1 12rem;
+  flex-direction: column;
+  gap: 0.4rem;
+  color: var(--text);
+  font-weight: 600;
+}
+
+.add-hero-form input {
+  box-sizing: border-box;
+  width: 100%;
+  min-width: 0;
+  padding: 0.7rem 0.9rem;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  color: var(--text);
+  background: var(--surface);
+  font: inherit;
+}
+
+.add-hero-form input:focus-visible,
+.add-hero-form button:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+.add-hero-form button {
+  min-height: 2.75rem;
+  padding: 0.65rem 1.1rem;
+  border: 0;
+  border-radius: 999px;
+  color: var(--accent-text);
+  background: var(--accent);
+  font: inherit;
+  font-weight: 600;
+  white-space: nowrap;
+  cursor: pointer;
+}
+
+.add-hero-form button:hover {
+  background: var(--accent-hover);
+}
+
 .heroes {
   margin: 0 0 2rem;
   padding: 0;
@@ -40,12 +93,13 @@
 
 .heroes li {
   display: flex;
+  gap: 0.5rem;
 }
 
-.heroes button {
+.heroes li > a {
   flex: 1;
   display: flex;
-  align-items: left;
+  align-items: center;
   gap: 2rem;
   min-height: 3rem;
   padding: 0 1rem 0 0;
@@ -63,24 +117,38 @@
   font-family: inherit;
 }
 
-.heroes button:hover {
+.heroes li > a:hover {
   background: var(--surface-hover);
   border-color: var(--accent);
 }
 
-.heroes button:active {
+.heroes li > a:active {
   background: var(--surface-hover);
 }
 
-.heroes button:focus-visible {
+.heroes li > a:focus-visible {
   outline: 2px solid var(--accent);
   outline-offset: 2px;
 }
 
-.heroes button.selected {
+.heroes li > a.selected {
   background: var(--accent);
   color: var(--accent-text);
   border-color: var(--accent);
+}
+
+.heroes .delete {
+  flex: 0 0 2.5rem;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  color: var(--text-muted);
+  background: var(--surface);
+  cursor: pointer;
+}
+
+.heroes .delete:hover {
+  color: var(--accent-text);
+  background: var(--accent-hover);
 }
 
 .heroes .badge {
@@ -96,7 +164,7 @@
   background: var(--accent-hover);
 }
 
-.heroes button.selected .badge {
+.heroes a.selected .badge {
   background: rgba(209, 59, 59, 0.18);
 }
 
@@ -107,7 +175,7 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .heroes button {
+  .heroes li > a {
     transition: none;
   }
 }

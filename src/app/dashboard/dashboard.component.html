@@ -1,11 +1,9 @@
 <h2>Top Heroes</h2>
 <div class="heroes-menu">
-  <button *ngFor="let hero of heroes" type="button" (click)="selectHero(hero)">
-    {{hero.name}}
-  </button>
+  <a *ngFor="let hero of heroes"
+      routerLink="/detail/{{hero.id}}">
+      {{hero.name}}
+  </a>
 </div>
-<app-hero-detail
-  *ngIf="selectedHero"
-  [hero]="selectedHero"
-  (closed)="selectedHero = undefined">
-</app-hero-detail>
+
+<app-hero-search></app-hero-search>
