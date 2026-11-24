@@ -3,5 +3,18 @@
   <a routerLink="/dashboard">Dashboard</a>
   <a routerLink="/heroes">Heroes</a>
 </nav>
-<router-outlet></router-outlet>
+<main [attr.aria-busy]="isLoading">
+  <div *ngIf="isLoading; else loadedContent" class="skeleton-content" aria-hidden="true">
+    <div class="skeleton skeleton-title"></div>
+    <div class="skeleton skeleton-line"></div>
+    <div class="skeleton skeleton-line skeleton-line-short"></div>
+    <div class="skeleton-card">
+      <div class="skeleton skeleton-line"></div>
+      <div class="skeleton skeleton-line skeleton-line-short"></div>
+    </div>
+  </div>
+  <ng-template #loadedContent>
+    <router-outlet></router-outlet>
+  </ng-template>
+</main>
 <app-messages></app-messages>
