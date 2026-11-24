@@ -1,27 +1,38 @@
 import { Component, OnInit } from '@angular/core';
-import { Hero } from '../hero';
 import { HeroService } from '../hero.service';
-import { NgFor } from '@angular/common';
-import { HeroDetailComponent } from '../hero-details/hero-details.component';
+import { Hero } from '../hero';
 
 @Component({
   selector: 'app-hero-list',
-  standalone: true,
-  imports: [NgFor, HeroDetailComponent],
   templateUrl: './hero-list.component.html',
-  styleUrl: './hero-list.component.css',
 })
 export class HeroListComponent implements OnInit {
-  heroes: Hero[] = [];
-  selectedHero: Hero | undefined;
+  heroes: Hero[] = []; // State variable to hold heroes
+  loading: boolean = false; // State variable for loading status
+  errorMessage = '';
 
-  constructor(private service: HeroService) {}
+  constructor(private heroService: HeroService) {}
 
   ngOnInit() {
-    this.service.getHeroes().subscribe((heroes) => (this.heroes = heroes));
- }
+    this.loadHeroes(); // Load heroes on component initialization
+  }
 
-  selectHero(hero: Hero) {
-    this.selectedHero = hero;
+  loadHeroes() {
+    this.loading = true;
+    this.errorMessage = '';
+    this.heroService.getHeroes().subscribe({
+      next: (data: Hero[]) => {
+        this.heroes = data;
+      },
+      error: (error: unknown) => {
+        this.errorMessage =
+          error instanceof Error
+            ? error.message
+            : 'Heroes could not be loaded. Please try again.';
+      },
+      complete: () => {
+        this.loading = false;
+      },
+    });
   }
 }

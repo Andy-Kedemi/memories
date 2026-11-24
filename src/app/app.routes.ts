@@ -1,5 +1,4 @@
 import { Routes } from '@angular/router';
-
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { HeroesComponent } from './heroes/heroes.component';
 import { HeroDetailComponent } from './hero-details/hero-details.component';
@@ -9,4 +8,11 @@ export const routes: Routes = [
   { path: 'dashboard', component: DashboardComponent },
   { path: 'detail/:id', component: HeroDetailComponent },
   { path: 'heroes', component: HeroesComponent },
+  {
+    path: 'hero-list',
+    loadChildren: () =>
+      import('../../projects/hero-list/src/lib/hero-list/hero-list.module').then(
+        (m) => m.HeroListModule,
+      ),
+  },
 ];

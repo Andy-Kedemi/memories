@@ -12,7 +12,7 @@ describe('HeroDetailComponent', () => {
 
   beforeEach(async () => {
     heroService = jasmine.createSpyObj<HeroService>('HeroService', ['getHero', 'updateHero']);
-    heroService.updateHero.and.returnValue(of(undefined));
+    heroService.updateHero.and.returnValue(of({ id: 1, name: 'Windstorm' }));
 
     await TestBed.configureTestingModule({
       imports: [HeroDetailComponent],

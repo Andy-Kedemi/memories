@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse, HttpHeaders, HttpParams } from '@angular/common/http';
 
 import { Observable, of } from 'rxjs';
 import { catchError, map, tap } from 'rxjs/operators';
@@ -9,7 +9,7 @@ import { MessageService } from './messages.service';
 
 @Injectable({ providedIn: 'root' })
 export class HeroService {
-  private heroesUrl = 'api/heroes'; // URL to web api
+  private readonly heroesUrl = 'api/heroes';
 
   httpOptions = {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
@@ -30,8 +30,8 @@ export class HeroService {
 
   /** GET hero by id. Return `undefined` when id not found */
   getHeroNo404<Data>(id: number): Observable<Hero> {
-    const url = `${this.heroesUrl}/?id=${id}`;
-    return this.http.get<Hero[]>(url).pipe(
+    const params = new HttpParams().set('id', id);
+    return this.http.get<Hero[]>(this.heroesUrl, { params }).pipe(
       map((heroes) => heroes[0]), // returns a {0|1} element array
       tap((h) => {
         const outcome = h ? 'fetched' : 'did not find';
@@ -56,7 +56,8 @@ export class HeroService {
       // if not search term, return empty hero array.
       return of([]);
     }
-    return this.http.get<Hero[]>(`${this.heroesUrl}/?name=${term}`).pipe(
+    const params = new HttpParams().set('name', term);
+    return this.http.get<Hero[]>(this.heroesUrl, { params }).pipe(
       tap((x) =>
         x.length
           ? this.log(`found heroes matching "${term}"`)
@@ -87,10 +88,10 @@ export class HeroService {
   }
 
   /** PUT: update the hero on the server */
-  updateHero(hero: Hero): Observable<any> {
-    return this.http.put(this.heroesUrl, hero, this.httpOptions).pipe(
+  updateHero(hero: Hero): Observable<Hero> {
+    return this.http.put<Hero>(this.heroesUrl, hero, this.httpOptions).pipe(
       tap((_) => this.log(`updated hero id=${hero.id}`)),
-      catchError(this.handleError<any>('updateHero')),
+      catchError(this.handleError<Hero>('updateHero')),
     );
   }
 
@@ -102,12 +103,13 @@ export class HeroService {
    * @param result - optional value to return as the observable result
    */
   private handleError<T>(operation = 'operation', result?: T) {
-    return (error: any): Observable<T> => {
-      // TODO: send the error to remote logging infrastructure
-      console.error(error); // log to console instead
+    return (error: HttpErrorResponse): Observable<T> => {
+      console.error(error);
 
-      // TODO: better job of transforming error for user consumption
-      this.log(`${operation} failed: ${error.message}`);
+      const message = error.status
+        ? `${operation} failed (${error.status} ${error.statusText || 'Unknown error'})`
+        : `${operation} failed: ${error.message}`;
+      this.log(message);
 
       // Let the app keep running by returning an empty result.
       return of(result as T);

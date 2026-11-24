@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, signal } from '@angular/core';
 import { NgFor } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { Hero } from '../hero';
@@ -12,7 +12,7 @@ import { HeroService } from '../hero.service';
   styleUrls: ['./heroes.component.css'],
 })
 export class HeroesComponent implements OnInit {
-  heroes: Hero[] = [];
+  heroes = signal<Hero[]>([]);
 
   constructor(private heroService: HeroService) {}
 
@@ -21,7 +21,7 @@ export class HeroesComponent implements OnInit {
   }
 
   getHeroes(): void {
-    this.heroService.getHeroes().subscribe((heroes) => (this.heroes = heroes));
+    this.heroService.getHeroes().subscribe((heroes) => this.heroes.set(heroes));
   }
 
   add(name: string): void {
@@ -32,11 +32,11 @@ export class HeroesComponent implements OnInit {
 
     this.heroService
       .addHero({ name: trimmedName })
-      .subscribe((hero) => this.heroes.push(hero));
+      .subscribe((hero) => this.heroes.update((heroes) => [...heroes, hero]));
   }
 
   delete(hero: Hero): void {
-    this.heroes = this.heroes.filter((item) => item !== hero);
+    this.heroes.update((heroes) => heroes.filter((item) => item !== hero));
     this.heroService.deleteHero(hero.id).subscribe();
   }
 }
