@@ -69,3 +69,6 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 >>>>>>> 1c100b86f50231330603111a2689a97458ef6f11
+
+.nx/cache
+.nx/workspace-data
